@@ -7,11 +7,15 @@ export default function Attendance() {
     Authorization: localStorage.getItem("token")
   };
   const updateAttendance = () => {
-    const studentData = JSON.decode(localStorage.getItem("students"));
-    const data = studentData.filter(item => item.attendance_marked === true);
+      console.log(localStorage.getItem("students"));
+      
+  
+    if(localStorage.getItem("students") !== null){
+        const studentData = JSON.parse(localStorage.getItem("students"));
+    const data =   studentData.filter(item => item.attendance_marked === true);
     fetch(attendanceUpdateRoute, {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({ students: data }),
       headers: headers
     })
       .then(res => res.json())
@@ -21,6 +25,10 @@ export default function Attendance() {
         }
       })
       .catch(err => console.log(err));
+    }
+    else{
+        
+    }
   };
   useEffect(() => {
     if (navigator.onLine) {
@@ -108,7 +116,7 @@ export default function Attendance() {
                     <h4>
                       {" "}
                       Attendance Marked (
-                      {item.status === true ? (
+                      {item.is_pre === true ? (
                         <span> Present</span>
                       ) : (
                         <span> Absent</span>
