@@ -4,6 +4,7 @@ import {BrowserRouter as Router,Route} from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import AddChild from './components/AddChild';
+import ViewStudents from './components/ViewStudents';
 function App() {
   useEffect(() =>{
     localStorage.setItem("center_id","12345678")
@@ -13,7 +14,8 @@ function App() {
     <div>
       <Route path="/register" exact component={SignUp}></Route>
       <Route path ="/login" exact component={Login}></Route>
-      <Route path="/addchild/" exact component ={AddChild}></Route>
+      <Route path="/addchild" exact component ={AddChild}></Route>
+      <Route path= "/students" exact component ={ViewStudents}></Route>
     </div>
     </Router>
   );
