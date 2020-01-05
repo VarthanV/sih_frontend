@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { studentsRoute, baseImgRoute } from "./helperConstants";
-
+import {Link} from 'react-router-dom';
 
 export default function ViewStudents() {
   const [students, setStudents] = useState([]);
@@ -38,7 +38,7 @@ export default function ViewStudents() {
         <tr key={index}>
 <th scope="row">{index+1}</th>
         <td><img src ={baseImgRoute+item.image} alt={item.name} width="50"></img></td>
-      <td>{item.name}</td>
+      <td><Link  to={"student/"+item.unique_id}>{item.name}</Link> </td>
       <td>{item.gender}</td>
       <td>{item.age}</td>
       </tr>
