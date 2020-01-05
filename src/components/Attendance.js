@@ -1,12 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { attendanceRoute } from "./helperConstants";
-import { Link,useHistory } from "react-router-dom";
+import { attendanceRoute, attendanceUpdateRoute } from "./helperConstants";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Attendance() {
   const headers = {
     Authorization: localStorage.getItem("token")
   };
+  const updateAttendance = () => {
+    const studentData = JSON.decode(localStorage.getItem("students"));
+    const data = studentData.filter(item => item.attendance_marked === true);
+    fetch(attendanceUpdateRoute, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: headers
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data["success"]) {
+          localStorage.removeItem("students");
+        }
+      })
+      .catch(err => console.log(err));
+  };
   useEffect(() => {
+    if (navigator.onLine) {
+      updateAttendance();
+      setOnline(true);
+    } else {
+      const studentData = JSON.parse(localStorage.getItem("students"));
+      setStudents(studentData);
+    }
     let url = new URL(attendanceRoute);
     let params = {
       center_id: localStorage.getItem("center_id")
@@ -21,11 +44,16 @@ export default function Attendance() {
       .then(data => {
         console.log(data);
         setStudents(data);
+        if (localStorage.getItem("students") === null) {
+          localStorage.setItem("students", JSON.stringify(data));
+        }
       });
+    return () => localStorage.setItem("students", JSON.stringify(students));
   }, []);
   const [students, setStudents] = useState([]);
-  const [dummy,setDummy] = useState(0);
-  const history =useHistory();
+  const [online, setOnline] = useState(false);
+  const history = useHistory();
+
   const markAttendance = (e, index, id) => {
     e.preventDefault();
     const value = e.target.value;
@@ -43,8 +71,15 @@ export default function Attendance() {
         const newStudents = students;
         newStudents[index].is_present = value;
         setStudents(newStudents);
-        history.pushState("/attendance")
+        history.push("/attendance");
       });
+  };
+  const markAttendanceOffline = (e, index) => {
+    e.preventDefault();
+    const value = e.target.value;
+    students[index].is_present = value;
+    students[index].attendance_marked = true;
+    localStorage.setItem("students", JSON.stringify(students));
   };
   return (
     <div>
@@ -86,7 +121,11 @@ export default function Attendance() {
                       <button
                         className="btn btn-primary"
                         value={true}
-                        onClick={e => markAttendance(e, index, item.unique_id)}
+                        onClick={e =>
+                          online
+                            ? markAttendance(e, index, item.unique_id)
+                            : markAttendanceOffline(e, index)
+                        }
                       >
                         {" "}
                         Present{" "}
@@ -94,7 +133,11 @@ export default function Attendance() {
                       <button
                         className="btn btn-danger ml-5"
                         value={false}
-                        onClick={e => markAttendance(e, index, item.unique_id)}
+                        onClick={e =>
+                          online
+                            ? markAttendance(e, index, item.unique_id)
+                            : markAttendanceOffline(e, index)
+                        }
                       >
                         {" "}
                         Absent

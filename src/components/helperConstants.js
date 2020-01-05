@@ -6,3 +6,4 @@ export const addStudentRoute =baseRoute+"student/add/";
 export const studentsRoute = baseRoute+"students/";
 export const  studentDetailRoute = baseRoute+"student/"
 export const attendanceRoute = baseRoute+"student/attendance/";
+export const attendanceUpdateRoute =baseRoute+"attendance/update/";
