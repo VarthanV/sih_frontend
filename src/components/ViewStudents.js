@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { studentsRoute, baseImgRoute } from "./helperConstants";
+import Navbar from './navbar';
 import {Link} from 'react-router-dom';
 
 export default function ViewStudents() {

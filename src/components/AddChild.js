@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { addStudentRoute } from "./helperConstants";
+import Navbar from './navbar';
+import './login.css';
 import axios from "axios";
 export default function AddChild() {
   const [firstName, setFirstName] = useState("");
@@ -68,9 +70,18 @@ export default function AddChild() {
   };
   return (
     <div>
+      <Navbar></Navbar>
+      
       <div className=" container signup-card">
-        <h4 className="signup-header"> SignUp ! </h4>
-        {error === true ? (
+        <div>
+          <div className="container-login100">
+            <div className="wrap-login100">
+            
+        <form onSubmit={e => handleSubmit(e)} className="login100-form">
+              <span className="login100-form-title">
+                Add Child
+              </span>
+              {error === true ? (
           <p className="alert alert-danger" role="alert">
             {" "}
             Email or Username already exist,Please login with your credentials{" "}
@@ -78,143 +89,202 @@ export default function AddChild() {
         ) : (
           <div> </div>
         )}
-        <form onSubmit={e => handleSubmit(e)}>
           <div className="form-group">
-            {imgURL ? (
-              <img src={imgURL} alt="profile" width="30%"></img>
-            ) : (
-              <div> </div>
-            )}
-            <h3> Upload your image </h3> <br></br>
-            <input
-              type="file"
-              className="btn btn-primary"
-              size="70"
-              accept="image/*"
-              onChange={e => handleFileUpload(e)}
-            />
-            <input
-              className="form-control mt-5"
-              type="text"
-              value={age}
-              onChange={e => handleChange(setAge, e.target.value)}
-              placeholder="Enter your  Age  "
-              autoComplete="off"
-              required
-            ></input>{" "}
-            <br></br>
-            <input
-              className="form-control mt-5"
-              type="text"
-              value={city}
-              onChange={e => handleChange(setCity, e.target.value)}
-              placeholder="Enter your  City "
-              autoComplete="off"
-              required
-            ></input>{" "}
-            <br></br>
-            <input
-              className="form-control mt-5"
-              type="text"
-              value={district}
-              onChange={e => handleChange(setDistrict, e.target.value)}
-              placeholder="Enter your  District "
-              autoComplete="off"
-              required
-            ></input>{" "}
-            <br></br>
-            <input
-              className="form-control mt-5"
-              type="text"
-              value={schoolName}
-              onChange={e => handleChange(setSchoolName, e.target.value)}
-              placeholder="Enter School Name "
-              autoComplete="off"
-            ></input>{" "}
-            <br></br>
-            <input
-              className="form-control"
-              type="text"
-              value={firstName}
-              onChange={e => handleChange(setFirstName, e.target.value)}
-              placeholder="Enter your First Name"
-              autoComplete="off"
-              required
-            ></input>
-            <br></br>
-            <input
-              className="form-control"
-              type="text"
-              value={lastName}
-              onChange={e => handleChange(setLastName, e.target.value)}
-              placeholder="Enter your Last Name "
-              autoComplete="off"
-              required
-            ></input>
-            <br></br>
-            <input
-              className="form-control"
-              type="text"
-              value={aadharNo}
-              onChange={e => handleChange(setAadharNo, e.target.value)}
-              placeholder="Enter your Aadhar No "
-              autoComplete="off"
-              required
-            ></input>{" "}
-            <br></br>
-            <input
-              className="form-control mt-5"
-              type="text"
-              value={gender}
-              onChange={e => handleChange(setGender, e.target.value)}
-              placeholder="Enter your Gender "
-              autoComplete="off"
-              required
-            ></input>{" "}
-            <br></br>
-            <label> Has Biological Parent ?</label>
-            <input
-              type="checkbox"
-              value={hasBiologicalParent}
-              required
-              onChange={() => {
-                setBiologicalParent(!hasBiologicalParent);
-                console.log(hasBiologicalParent);
-              }}
-            ></input>{" "}
-            <br></br>
-            <label> IS CWC Eligible?</label>
-            <input
-              type="checkbox"
-              value={CWCeligible}
-              required
-              onChange={() => {
-                setCWCeligible(!CWCeligible);
-              }}
-            ></input>{" "}
-            <br></br>
-            <label> Has Parent Left ?</label>
-            <input
-              type="checkbox"
-              value={parentLeft}
-              required
-              onChange={() => {
-                setparentLeft(!parentLeft);
-              }}
-            ></input>{" "}
-            <br></br>
-            <h4> Address </h4>
-            <textarea
-              value={address}
-              onChange={e => handleChange(setAddress, e.target.value)}
-            ></textarea>
-            <br></br>
-            <button type="submit" className="btn btn-primary">
-              {" "}
-              Submit{" "}
-            </button>
+            <div className="top-layer row">
+              <div className="col-sm-4 col-lg-3">
+                <div className="user-img-div">
+                      {imgURL ? <img src={imgURL} alt="profile" className="user-img"></img> : <img className="user-img" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="profile" width="30%"></img>}
+                      <br></br>
+                      <hr></hr>
+                      <input
+                        type="file"
+                        id="uploadimg"
+                        className="file-upload"
+                        name="upload"
+                        size="70"
+                        accept="image/*"
+                        onChange={e => handleFileUpload(e)}
+                      />
+                      <label for="uploadimg" className="btn upload-btn"> Upload Image </label>
+                </div>
+              </div>
+              <div className="col">
+                <div className="row">
+                  <div className="user col">
+                    <label for="childFirstName" className="emp-id">First Name</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      id="childFirstName"
+                      value={firstName}
+                      onChange={e => handleChange(setFirstName, e.target.value)}
+                      placeholder="Enter your First Name"
+                      autoComplete="off"
+                      required
+                    ></input>
+                  </div>
+                  <div className="user col">
+                    <label for="childLastName" className="emp-id">Last Name</label>
+                    <input
+                      className="form-control"
+                      id="childLastName"
+                      type="text"
+                      value={lastName}
+                      onChange={e => handleChange(setLastName, e.target.value)}
+                      placeholder="Enter your Last Name "
+                      autoComplete="off"
+                      required
+                    ></input>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="user col">
+                    <label for="childAge" className="emp-id">Age</label>
+                    <input
+                      className="form-control"
+                      type="number"
+                      id="childAge"
+                      value={age}
+                      onChange={e => handleChange(setAge, e.target.value)}
+                      placeholder="Enter your  Age  "
+                      autoComplete="off"
+                      required
+                    ></input>{" "}
+                  </div>
+                  <div className="user col">
+                    <label for="childCity" className="emp-id">City</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      id="childCity"
+                      value={city}
+                      onChange={e => handleChange(setCity, e.target.value)}
+                      placeholder="Enter your  City "
+                      autoComplete="off"
+                      required
+                    ></input>{" "}
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="user col">
+                    <label for="childDistrict" className="emp-id">District</label>
+                    <input
+                      className="form-control"
+                      id="childDistrict"
+                      type="text"
+                      value={district}
+                      onChange={e => handleChange(setDistrict, e.target.value)}
+                      placeholder="Enter your  District "
+                      autoComplete="off"
+                      required
+                    ></input>{" "}
+                  </div>
+                  <div className="user col">
+                    <label for="childSchoolName" className="emp-id">School Name</label>
+                    <input
+                      className="form-control"
+                      id="childSchoolName"
+                      type="text"
+                      value={schoolName}
+                      onChange={e => handleChange(setSchoolName, e.target.value)}
+                      placeholder="Enter School Name "
+                      autoComplete="off"
+                    ></input>{" "}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row bottom-layer">
+              <div className="user1">
+                <label for="childAadhar" className="emp-id">Aadhar Number</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  id="childAadhar"
+                  value={aadharNo}
+                  onChange={e => handleChange(setAadharNo, e.target.value)}
+                  placeholder="Enter your Aadhar No "
+                  autoComplete="off"
+                  required
+                ></input>{" "}
+              </div>
+              <div className="user1">
+                <label for="childGender" className="emp-id">Gender</label>
+                <select 
+                  className="form-control" 
+                  id="employeeGender"
+                  value={gender}
+                  onChange={e => handleChange(setGender, e.target.value)}
+                  required
+                >
+                  <option>Choose . . .</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Transgender</option>
+                </select>
+              </div>
+              <div className="user1">
+                <label for="childBioParent" className="emp-id"> Has Biological Parent ?</label>
+                <input
+                  type="checkbox"
+                  id="childBioParent"
+                  value={hasBiologicalParent}
+                  required
+                  onChange={() => {
+                    setBiologicalParent(!hasBiologicalParent);
+                    console.log(hasBiologicalParent);
+                  }}
+                ></input>{" "}
+              </div>
+              <div className="user1">
+                <label for="childCWC" className="emp-id"> Is CWC Eligible?</label>
+                <input
+                  type="checkbox"
+                  id="childCWC"
+                  value={CWCeligible}
+                  required
+                  onChange={() => {
+                    setCWCeligible(!CWCeligible);
+                  }}
+                ></input>{" "}
+              </div>
+              <div className="user1">
+                <label for="childParentLeft" className="emp-id"> Has Parent Left ?</label>
+                <input
+                  type="checkbox"
+                  id="childParentLeft"
+                  value={parentLeft}
+                  required
+                  onChange={() => {
+                    setparentLeft(!parentLeft);
+                  }}
+                ></input>{" "}
+              </div>
+              <div className="user1">
+                <label for="childAddress" className="emp-id">Address</label>
+                <textarea
+                  value={address}
+                  className="form-control"
+                  id="childAddress"
+                  rows="3"
+                  onChange={e => handleChange(setAddress, e.target.value)}
+                ></textarea>
+              </div>
+            </div>
+            <div className="submit-layer">
+              <button type="submit" className="btn submit-btn">
+                {" "}
+                Add Child{" "}
+              </button>
+            </div>  
           </div>
         </form>
+            </div>
+          </div>
+        
+
+        </div>
+        
       </div>
     </div>
   );

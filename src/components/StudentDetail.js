@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { studentDetailRoute, baseImgRoute } from "./helperConstants";
+<<<<<<< HEAD
+import Navbar from './navbar';
+
+=======
 import { Link } from "react-router-dom";
+>>>>>>> fdac980e9f250ff1a0fd21682161caf9677d5289
 export default function StudentDetail(props) {
   const id = props.match.params.id;
   const [student, setStudent] = useState({});
