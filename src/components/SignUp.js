@@ -3,6 +3,7 @@ import './login.css';
 import { authRoute } from "./helperConstants";
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
+import Navbar from './navbar';
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -265,7 +266,7 @@ const [city,setCity] = useState("");
                 <div className="submit-layer">
                   <button type="submit" className="btn submit-btn">
                     {" "}
-                    Submit{" "}
+                    Sign Up{" "}
                   </button>
                 </div>  
                 

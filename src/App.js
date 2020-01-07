@@ -7,9 +7,13 @@ import AddChild from "./components/AddChild";
 import ViewStudents from "./components/ViewStudents";
 import StudentDetail from "./components/StudentDetail";
 import Attendance from "./components/Attendance";
+import Home from "./components/Home";
+import Navbar from './components/navbar';
+
 function App() {
   useEffect(() => {
     localStorage.setItem("center_id", "12345678");
+    
   });
   return (
     <Router>
@@ -20,6 +24,7 @@ function App() {
         <Route path="/students" exact component={ViewStudents}></Route>
         <Route path="/student/:id" exact component={StudentDetail}></Route>
         <Route path="/attendance" exact component={Attendance}></Route>
+        <Route path="/" exact component={Home}></Route>
       </div>
     </Router>
   );
