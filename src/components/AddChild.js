@@ -49,8 +49,8 @@ export default function AddChild() {
     formData.append("parent_left", parentLeft);
     formData.append("district", district);
     formData.append("school_name", schoolName);
-    formData.append("date_registered",null)
-    formData.append('city',city);
+    formData.append("date_registered", null);
+    formData.append("city", city);
     axios({
       method: "post",
       url: addStudentRoute,

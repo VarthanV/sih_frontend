@@ -3,31 +3,29 @@ import { attendanceRoute, attendanceUpdateRoute } from "./helperConstants";
 import { Link, useHistory } from "react-router-dom";
 
 export default function Attendance() {
+  const [dummy, setDummy] = useState(0);
   const headers = {
     Authorization: localStorage.getItem("token")
   };
   const updateAttendance = () => {
-      console.log(localStorage.getItem("students"));
-      
-  
-    if(localStorage.getItem("students") !== null){
-        const studentData = JSON.parse(localStorage.getItem("students"));
-    const data =   studentData.filter(item => item.attendance_marked === true);
-    fetch(attendanceUpdateRoute, {
-      method: "POST",
-      body: JSON.stringify({ students: data }),
-      headers: headers
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data["success"]) {
-          localStorage.removeItem("students");
-        }
+    console.log(localStorage.getItem("students"));
+
+    if (localStorage.getItem("students") !== null) {
+      const studentData = JSON.parse(localStorage.getItem("students"));
+      const data = studentData.filter(item => item.attendance_marked === true);
+      fetch(attendanceUpdateRoute, {
+        method: "POST",
+        body: JSON.stringify({ students: data }),
+        headers: headers
       })
-      .catch(err => console.log(err));
-    }
-    else{
-        
+        .then(res => res.json())
+        .then(data => {
+          if (data["success"]) {
+            localStorage.removeItem("students");
+          }
+        })
+        .catch(err => console.log(err));
+    } else {
     }
   };
   useEffect(() => {
@@ -77,9 +75,10 @@ export default function Attendance() {
       .then(data => {
         console.log(data);
         const newStudents = students;
-        newStudents[index].is_present = value;
+        students[index].is_present = value;
         setStudents(newStudents);
         history.push("/attendance");
+        setDummy(dummy + 1);
       });
   };
   const markAttendanceOffline = (e, index) => {
@@ -87,6 +86,7 @@ export default function Attendance() {
     const value = e.target.value;
     students[index].is_present = value;
     students[index].attendance_marked = true;
+    setDummy(dummy);
     localStorage.setItem("students", JSON.stringify(students));
   };
   return (
@@ -112,7 +112,8 @@ export default function Attendance() {
                 <td>{item.age}</td>
                 <td>
                   {" "}
-                  {item.attendance_marked === true ? (
+                  {item.attendance_marked === true ||
+                  item.is_present !== undefined ? (
                     <h4>
                       {" "}
                       Attendance Marked (

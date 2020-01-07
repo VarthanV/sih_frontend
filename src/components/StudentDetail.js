@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { studentDetailRoute, baseImgRoute } from "./helperConstants";
-
+import { Link } from "react-router-dom";
 export default function StudentDetail(props) {
   const id = props.match.params.id;
   const [student, setStudent] = useState({});
@@ -19,7 +19,13 @@ export default function StudentDetail(props) {
       headers: headers
     })
       .then(res => res.json())
-      .then(data => setStudent(data));
+      .then(data => {
+        console.log(data);
+
+        setStudent(data);
+        
+        
+      });
   }, {});
 
   return (
@@ -49,16 +55,27 @@ export default function StudentDetail(props) {
         </div>
         <div className="card">
           <h3> Guardians </h3>
-          {student.guardians !== undefined ?  student.guardians.map((item, index) => (
-            <div key={index} className="row">
-              <img
-                className="avatar mr-10"
-                src={baseImgRoute + item.image}
-                alt={item.name}
-              ></img>
-              <h4 className="lead ml-10"> {item.name}</h4>
-            </div>
-          )):<div> No guardians</div>}
+          {student.guardians !== undefined ? (
+            student.guardians.map((item, index) => (
+              <div key={index} className="row">
+                <img
+                  className="avatar mr-10"
+                  src={baseImgRoute + item.image}
+                  alt={item.name}
+                ></img>
+                <h4 className="lead ml-10"> {item.name}</h4>
+                <Link
+                  to={"addguardian/" + student.unique_id}
+                  className="btn btn-danger"
+                >
+                  {" "}
+                  Add Guardian{" "}
+                </Link>
+              </div>
+            ))
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
     </div>
