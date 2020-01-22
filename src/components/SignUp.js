@@ -30,7 +30,7 @@ export default function SignUp() {
     setImageFile(e.target.files[0]);
     reader.readAsDataURL(file)
     reader.onloadend = () => {
-      console.log(reader.result);
+      // console.log(reader.result);
       
       setImgURL(reader.result);
 

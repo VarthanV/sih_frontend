@@ -8,6 +8,7 @@ export default function StudentDetail(props) {
   const id = props.match.params.id;
   const [student, setStudent] = useState({});
   const [achievements, setAchievements] = useState([]);
+const [guardians,setGuardians] = useState([]);
 
   useEffect(() => {
     let url = new URL(studentDetailRoute);
@@ -30,6 +31,7 @@ export default function StudentDetail(props) {
 
         setStudent(data);
         setAchievements(data.achievements);
+        setGuardians(data.guardians);
 
 
       });
@@ -180,7 +182,7 @@ export default function StudentDetail(props) {
               <div className="col-4 detail-edit">add Guardian</div>
             </div>
             <div className="row pt-5 justify-content-center">
-              {true ? 'No guardians available' : 'guardians available'}
+              {guardians.length === 0  ? 'No guardians available' : 'guardians available'}
             </div>
           </div>
         </div>
