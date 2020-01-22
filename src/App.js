@@ -7,7 +7,7 @@ import AddChild from "./components/AddChild";
 import ViewStudents from "./components/ViewStudents";
 import StudentDetail from "./components/StudentDetail";
 import Attendance from "./components/Attendance";
-import AddGaurdian from "./components/AddGuardians";
+import AddGuardians from "./components/AddGuardians";
 
 function App() {
   useEffect(() => {
@@ -15,6 +15,7 @@ function App() {
     
   });
   return (
+  
     <Router>
       <div>
         <Route path="/register" exact component={SignUp}></Route>
@@ -22,7 +23,7 @@ function App() {
         <Route path="/addchild" exact component={AddChild}></Route>
         <Route path="/students" exact component={ViewStudents}></Route>
         <Route path="/student/:id" exact component={StudentDetail}></Route>
-        <Route path="/student/:id/addgaurdian" exact component={AddGaurdian}></Route>
+        <Route path="/student/:id/addgaurdian" exact component={AddGuardians}></Route>
         <Route path="/attendance" exact component={Attendance}></Route>
         <Route path="/" exact component={Login}></Route>
       </div>
