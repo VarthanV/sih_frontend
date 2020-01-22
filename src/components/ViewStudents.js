@@ -19,7 +19,12 @@ export default function ViewStudents() {
       headers: headers
     })
       .then(res => res.json())
-      .then(data => setStudents(data));
+      .then(
+        
+
+        data => {setStudents(data)
+          console.log(data)}
+        );
   }, []);
   return (
     <div className="">
@@ -40,7 +45,7 @@ export default function ViewStudents() {
             </tr>
           </thead>
           <tbody>
-            {students.length === 0 ? (
+            {students.length !== 0 ? (
               students.map((item, index) => (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>

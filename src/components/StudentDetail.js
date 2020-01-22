@@ -179,7 +179,7 @@ const [guardians,setGuardians] = useState([]);
             </div>
             <div className="row pt-5">
               <div className="col-8 detail-title">Guardian Details</div>
-              <div className="col-4 detail-edit">add Guardian</div>
+              <div className="col-4 detail-edit"><Link to={id + "/addguardian"}>Add Guardian</Link></div>
             </div>
             <div className="row pt-5 justify-content-center">
               {guardians.length === 0  ? 'No guardians available' : 'guardians available'}
