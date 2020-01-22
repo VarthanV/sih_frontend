@@ -52,6 +52,7 @@ export default function AddGuardians(props) {
     formData.append("unique_id", id);
     fetch(addGuardianRoute, {
       body: formData,
+
       headers: {
         "content-type": "application/form-data",
         Authorization: localStorage.getItem("token")
