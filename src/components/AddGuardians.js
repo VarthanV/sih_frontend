@@ -51,6 +51,7 @@ export default function AddGuardians(props) {
     formData.append("married", isMarried);
     formData.append("unique_id", id);
     fetch(addGuardianRoute, {
+      method:"post",
       body: formData,
       headers: {
         "content-type": "application/form-data",
