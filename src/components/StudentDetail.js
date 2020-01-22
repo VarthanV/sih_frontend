@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { studentDetailRoute, baseImgRoute } from "./helperConstants";
-import '../css/login.css';
-import Navbar from './navbar'
+import "../css/login.css";
+import Navbar from "./navbar";
 
 import { Link } from "react-router-dom";
+import Guardians from "./Guardians";
 export default function StudentDetail(props) {
   const id = props.match.params.id;
   const [student, setStudent] = useState({});
   const [achievements, setAchievements] = useState([]);
-const [guardians,setGuardians] = useState([]);
+  const [guardians, setGuardians] = useState([]);
 
   useEffect(() => {
     let url = new URL(studentDetailRoute);
@@ -32,8 +33,6 @@ const [guardians,setGuardians] = useState([]);
         setStudent(data);
         setAchievements(data.achievements);
         setGuardians(data.guardians);
-
-
       });
   }, []);
 
@@ -133,7 +132,12 @@ const [guardians,setGuardians] = useState([]);
                 <div className="row">
                   <div className="user col">
                     <div className="row emp-di">
-                      School :<div className="emp-d">{student.school_name === "" ? 'Not entered yet' : student.school_name}</div>
+                      School :
+                      <div className="emp-d">
+                        {student.school_name === ""
+                          ? "Not entered yet"
+                          : student.school_name}
+                      </div>
                     </div>
                   </div>
                   <div className="user col">
@@ -145,24 +149,44 @@ const [guardians,setGuardians] = useState([]);
                 <div className="row">
                   <div className="user col">
                     <div className="row emp-di">
-                      Aadhar No :<div className="emp-d">{student.aadhar_no === "" ? 'Not entered yet' : student.aadhar_no}</div>
+                      Aadhar No :
+                      <div className="emp-d">
+                        {student.aadhar_no === ""
+                          ? "Not entered yet"
+                          : student.aadhar_no}
+                      </div>
                     </div>
                   </div>
                   <div className="user col">
                     <div className="row emp-di">
-                      Biological Parent :<div className="emp-d">{student.has_biologicalParent === true ? 'Available' : 'Not Available'}</div>
+                      Biological Parent :
+                      <div className="emp-d">
+                        {student.has_biologicalParent === true
+                          ? "Available"
+                          : "Not Available"}
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div className="row">
                   <div className="user col">
                     <div className="row emp-di">
-                      CWC :<div className="emp-d">{student.is_cwc_eligible === true ? 'Eligible' : 'Not Eligible'}</div>
+                      CWC :
+                      <div className="emp-d">
+                        {student.is_cwc_eligible === true
+                          ? "Eligible"
+                          : "Not Eligible"}
+                      </div>
                     </div>
                   </div>
                   <div className="user col">
                     <div className="row emp-di">
-                      Achievements :<div className="emp-d">{achievements.length === 0 ? 'No achievements yet' : 'Achievements available'}</div>
+                      Achievements :
+                      <div className="emp-d">
+                        {achievements.length === 0
+                          ? "No achievements yet"
+                          : "Achievements available"}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -170,7 +194,7 @@ const [guardians,setGuardians] = useState([]);
                   <div className="user col">
                     <div className="row emp-di">
                       Address:
-                    <div className="emp-d">{student.address}</div>
+                      <div className="emp-d">{student.address}</div>
                     </div>
                   </div>
                   <div className="user col"></div>
@@ -179,10 +203,20 @@ const [guardians,setGuardians] = useState([]);
             </div>
             <div className="row pt-5">
               <div className="col-8 detail-title">Guardian Details</div>
-              <div className="col-4 detail-edit"><Link to={id + "/addguardian"}>Add Guardian</Link></div>
+              <div className="col-4 detail-edit">
+                <Link to={id + "/addguardian"}>Add Guardian</Link>
+              </div>
             </div>
             <div className="row pt-5 justify-content-center">
-              {guardians.length === 0  ? 'No guardians available' : 'guardians available'}
+              {guardians.length === 0
+                ? "No guardians available"
+                : guardians.map(item => (
+                    <Guardians
+                      name={item.name}
+                      uniqueid={item.unique_id}
+                      image={item.image}
+                    ></Guardians>
+                  ))}
             </div>
           </div>
         </div>
