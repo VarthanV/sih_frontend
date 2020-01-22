@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import  axios  from "axios";
 import Navbar from "./navbar";
 import "../css/login.css";
 import { addGuardianRoute } from "./helperConstants";
@@ -49,18 +49,22 @@ export default function AddGuardians(props) {
     formData.append("district", district);
     formData.append("city", city);
     formData.append("married", isMarried);
+    formData.append("child",hasChild);
+    formData.append("no_child",noOfChild);
     formData.append("unique_id", id);
-    fetch(addGuardianRoute, {
-      method:"post",
-      body: formData,
-
+    formData.append("email",email);
+    axios({
+      method: "post",
+      url: addGuardianRoute,
+      data: formData,
       headers: {
         "content-type": "application/form-data",
         Authorization: localStorage.getItem("token")
       }
     })
-      .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+      })
       .catch(err => console.log(err));
   };
 
@@ -248,6 +252,7 @@ export default function AddGuardians(props) {
                           </label>
                         </div>
                       </div>
+
                       <div className="col">
                         <div className="row">
                           <div className="user col">
@@ -356,6 +361,23 @@ export default function AddGuardians(props) {
                               autoComplete="off"
                             ></input>{" "}
                           </div>
+                        </div>
+                        <div className="row">
+                          <div className="user col">
+                            <label htmlFor="childEmail" className="emp-id">Email</label>
+                            <input 
+                              className="form-control"
+                              type="email"
+                              id="childEmail"
+                              value={email}
+                              onChange={e =>
+                                handleChange(setEmail, e.target.value)
+                              }
+                              placeholder="Enter your Email "
+                              autoComplete="off"
+                            />
+                          </div>
+
                         </div>
                       </div>
                     </div>
