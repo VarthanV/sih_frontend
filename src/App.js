@@ -8,6 +8,7 @@ import ViewStudents from "./components/ViewStudents";
 import StudentDetail from "./components/StudentDetail";
 import Attendance from "./components/Attendance";
 import AddGuardians from "./components/AddGuardians";
+import Navbar from './components/navbar';
 
 function App() {
   useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
   
     <Router>
       <div>
+        <Navbar></Navbar>
         <Route path="/register" exact component={SignUp}></Route>
         <Route path="/login" exact component={Login}></Route>
         <Route path="/addchild" exact component={AddChild}></Route>
