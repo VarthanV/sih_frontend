@@ -9,8 +9,8 @@ export default function Navbar() {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="#">Navbar</a>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <Link className="navbar-brand"to="/home">  Children Management </Link>
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -32,7 +32,7 @@ export default function Navbar() {
                         
                         
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Attendance</a>
+                            <Link className="nav-link" to="/attendance">Attendance</Link>
                         </li>
                     </ul>
                 </div>

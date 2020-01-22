@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { attendanceRoute, attendanceUpdateRoute } from "./helperConstants";
 import { Link, useHistory } from "react-router-dom";
-import Navbar from './navbar';
+import Navbar from "./navbar";
 
 export default function Attendance() {
   const [dummy, setDummy] = useState(0);
@@ -64,6 +64,7 @@ export default function Attendance() {
   const markAttendance = (e, index, id) => {
     e.preventDefault();
     const value = e.target.value;
+    console.log(value);
     const formData = new FormData();
     formData.append("unique_id", id);
     formData.append("is_present", value);
@@ -75,9 +76,14 @@ export default function Attendance() {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        const newStudents = students;
-        students[index].is_present = value;
-        setStudents(newStudents);
+        //const newStudents = students;
+        setStudents(students => {
+          students[index].is_present = data.is_present;
+          students[index].attendance_marked = true;
+          console.log(students);
+          
+          return [...students];
+        });
         history.push("/attendance");
         setDummy(dummy + 1);
       });
@@ -92,7 +98,7 @@ export default function Attendance() {
   };
   return (
     <div>
-      <div className="container">
+      <div className="container mt-5">
         <table class="table">
           <thead>
             <tr>
@@ -113,12 +119,11 @@ export default function Attendance() {
                 <td>{item.age}</td>
                 <td>
                   {" "}
-                  {item.attendance_marked === true ||
-                  item.is_present !== undefined ? (
+                  {item.attendance_marked === true ? (
                     <h4>
                       {" "}
                       Attendance Marked (
-                      {item.is_pre === true ? (
+                      {item.is_present === true ? (
                         <span> Present</span>
                       ) : (
                         <span> Absent</span>

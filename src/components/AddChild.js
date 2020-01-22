@@ -70,7 +70,6 @@ export default function AddChild() {
   };
   return (
     <div>
-      <Navbar></Navbar>
       
       <div className=" container signup-card">
         <div>
