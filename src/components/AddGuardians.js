@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { axios } from "axios";
 import Navbar from "./navbar";
 import "../css/login.css";
 import { addGuardianRoute } from "./helperConstants";
@@ -50,16 +50,18 @@ export default function AddGuardians(props) {
     formData.append("city", city);
     formData.append("married", isMarried);
     formData.append("unique_id", id);
-    fetch(addGuardianRoute, {
-      method:"post",
-      body: formData,
+    axios({
+      method: "post",
+      url: addGuardianRoute,
+      data: formData,
       headers: {
         "content-type": "application/form-data",
         Authorization: localStorage.getItem("token")
       }
     })
-      .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+      })
       .catch(err => console.log(err));
   };
 
@@ -247,6 +249,7 @@ export default function AddGuardians(props) {
                           </label>
                         </div>
                       </div>
+
                       <div className="col">
                         <div className="row">
                           <div className="user col">
