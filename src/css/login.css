@@ -8,8 +8,52 @@
     text-decoration: underline;
 }
 
+.signup-card{
+  height:calc(100vh - 60px);
+  border-radius: 10px;
+  display: flex;
+  width:100%;
+  justify-content: center;
+  align-items: center;
+}
 
+.loginformcontainer{
+  height: 650px;
+  border-radius: 10px;
+}
 
+.container-login100{
+  height: 650px;
+  border-radius: 10px;
+}
+
+.addChildBody{
+  
+  background-color: rgba(42,171,37,1);
+}
+
+.detail-title{
+  font-family: 'Poppins',sans-serif;
+  font-size: 18px;
+  font-weight:600;
+}
+
+.add{
+  padding-left:170px;
+}
+
+.detail-edit{
+  text-align: start;
+  float:right;
+  justify-content: end;
+  font-family: 'Poppins',sans-serif;
+  font-size: 18px;
+  font-weight:600;
+}
+
+/* .wrap-login100{
+  background-color: #333333 !important;
+} */
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
@@ -177,8 +221,8 @@
   }
   
   .container-login100 {
-    width: 100%;  
-    min-height: 100vh;
+    width: 100%; 
+    border-radius: 10px; 
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -192,7 +236,9 @@
   
   
   .wrap-login100 {
+    border-radius: 30px;
     width: 100%;
+    height:650px;
     background: #fff;
     overflow: hidden;
     display: -webkit-box;
@@ -212,18 +258,20 @@
   .login100-form {
     min-width: 560px;
     max-width:990px;
-    min-height: 100vh;
+    
     display: block;
     /* background-color: #f7f7f7; */
-    padding: 173px 55px 55px 55px;
+    padding: 50px 55px 55px 55px;
   }
   
   .login100-form-title {
     padding-bottom: 15px;
+    text-transform: uppercase;
     width: 100%;
+    letter-spacing: 1.5px;
     display: block;
     font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 30px;
     color: #333333;
     line-height: 1.2;
@@ -469,9 +517,29 @@
   }
 
   .emp-id{
-    font-size: 16px;
+    font-size: 14px;
     padding-left: 2px;
+    font-weight: 500;
+    padding-top:6px;
+    letter-spacing: 0px;
+    /* text-transform: uppercase; */
+    padding-bottom: 3px;
     color: rgba(0,0,0,0.8);
+  }
+
+  .emp-di{
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.8);
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .emp-d{
+    font-size: 14px;
+    padding-left:10px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.7);
+    font-family: 'Montserrat', sans-serif,
   }
 
   .user{
@@ -505,4 +573,27 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 12px;
+  }
+
+  .stuimg{
+    width:132.2834px;
+    height:170.0787px;
+  }
+
+  .vertical-line{
+    border-left:1px solid #333333;
+    padding-left: 10px;
+    align-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+  }
+
+  .emblem-img{
+    padding-right: 10px;
+    margin-left: 10px;
+  }
+
+  .navbar{
+    background-color: rgba(109, 250, 109, 0.692);
   }

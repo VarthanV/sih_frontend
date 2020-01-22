@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import './login.css';
+import '../css/login.css';
 import { authRoute } from "./helperConstants";
+import {Link} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
-import Navbar from './navbar';
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,9 +16,9 @@ export default function SignUp() {
   const [imageFile, setImageFile] = useState("");
   const [imgURL, setImgURL] = useState("");
   const [age,setAge]  = useState("");
-const [address,setAddress] = useState("");
-const [gender,setGender] = useState("");
-const [city,setCity] = useState("");
+  const [address,setAddress] = useState("");
+  const [gender,setGender] = useState("");
+  const [city,setCity] = useState("");
   const history = useHistory();
   const handleChange = (setFunc, value) => {
     setFunc(value);
@@ -30,7 +30,7 @@ const [city,setCity] = useState("");
     setImageFile(e.target.files[0]);
     reader.readAsDataURL(file)
     reader.onloadend = () => {
-      console.log(reader.result);
+      // console.log(reader.result);
       
       setImgURL(reader.result);
 
@@ -54,8 +54,8 @@ const [city,setCity] = useState("");
     formData.append("center_id",localStorage.getItem("center_id"))
     formData.append("gender",gender)
     formData.append("city",city);
-    console.log(formData.email);
-    console.log(formData.gender);
+    console.log(formData['email']);
+    
     
     axios({
       method: "post",
@@ -65,10 +65,9 @@ const [city,setCity] = useState("");
         'content-type': 'application/form-data',
       }
 
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data["registered"]) {
+    }).then(data => {
+      console.log(data.data["registered"])
+        if (data.data["registered"]) {
           history.push("/login");
         }
       })
@@ -108,13 +107,13 @@ const [city,setCity] = useState("");
                         accept="image/*"
                         onChange={e => handleFileUpload(e)}
                       />
-                      <label for="uploadimg" className="btn upload-btn"> Upload Image </label>
+                      <label htmlFor="uploadimg" className="btn upload-btn"> Upload Image </label>
                     </div>
                   </div> 
                   <div className="col">
                     <div className="row">
                       <div className="user col">
-                        <label for="employeeId" className="emp-id">Employee ID</label>
+                        <label htmlFor="employeeId" className="emp-id">Employee ID</label>
                         <input
                           className="form-control mt-1"
                           type="text"
@@ -127,7 +126,7 @@ const [city,setCity] = useState("");
                         ></input>{" "}
                       </div>
                       <div className="user col">
-                        <label for="employeeAge" className="emp-id">Age</label>
+                        <label htmlFor="employeeAge" className="emp-id">Age</label>
                         <input
                           className="form-control mt-1"
                           id="employeeAge"
@@ -142,7 +141,7 @@ const [city,setCity] = useState("");
                     </div>
                     <div className="row">
                       <div className="user col">
-                        <label for="employeeCity" className="emp-id">City</label>
+                        <label htmlFor="employeeCity" className="emp-id">City</label>
                         <input
                           className="form-control mt-1"
                           id="employeeCity"
@@ -155,7 +154,7 @@ const [city,setCity] = useState("");
                         ></input>{" "}
                       </div>     
                       <div className="user col">
-                        <label for="employeeEmail" className="emp-id">Email</label>
+                        <label htmlFor="employeeEmail" className="emp-id">Email</label>
                         <input
                           className="form-control"
                           type="email"
@@ -170,7 +169,7 @@ const [city,setCity] = useState("");
                     </div> 
                     <div className="row">
                       <div className="user col">
-                        <label for="employeeFirstName" className="emp-id">First Name</label>
+                        <label htmlFor="employeeFirstName" className="emp-id">First Name</label>
                         <input
                           className="form-control"
                           id="employeeFirstName"
@@ -183,7 +182,7 @@ const [city,setCity] = useState("");
                         ></input>
                       </div>
                       <div className="user col">
-                        <label for="employeeLastName" className="emp-id">Last Name</label>
+                        <label htmlFor="employeeLastName" className="emp-id">Last Name</label>
                         <input
                           className="form-control"
                           id="employeeLastName"
@@ -200,7 +199,7 @@ const [city,setCity] = useState("");
                 </div>
                 <div className="row bottom-layer">
                   <div className="user1">
-                    <label for="employeeAadharNo" className="emp-id">Aadhar No</label>
+                    <label htmlFor="employeeAadharNo" className="emp-id">Aadhar No</label>
                     <input
                       className="form-control"
                       type="number"
@@ -213,7 +212,7 @@ const [city,setCity] = useState("");
                     ></input>{" "}
                   </div>
                   <div className="user1">
-                    <label for="employeeGender" className="emp-id">Gender</label>
+                    <label htmlFor="employeeGender" className="emp-id">Gender</label>
                     <select 
                       className="form-control" 
                       id="employeeGender"
@@ -228,7 +227,7 @@ const [city,setCity] = useState("");
                     </select>
                   </div>
                   <div className="user1">
-                    <label for="employeePassword" className="emp-id">Password</label>
+                    <label htmlFor="employeePassword" className="emp-id">Password</label>
                     <input
                       className="form-control"
                       type="password"
@@ -240,7 +239,7 @@ const [city,setCity] = useState("");
                     ></input>
                   </div>
                   <div className="user1">
-                    <label for="employeeConfirmPassword" className="emp-id">Confirm Password</label>
+                    <label htmlFor="employeeConfirmPassword" className="emp-id">Confirm Password</label>
                     <input
                       className="form-control"
                       id="employeeConfirmPassword"
@@ -253,7 +252,7 @@ const [city,setCity] = useState("");
                     ></input>
                   </div>
                   <div className="user1">
-                    <label for="employeeAddress" className="emp-id">Address</label>
+                    <label htmlFor="employeeAddress" className="emp-id">Address</label>
                     <textarea 
                     value={address}
                     className="form-control"
@@ -269,7 +268,11 @@ const [city,setCity] = useState("");
                     Sign Up{" "}
                   </button>
                 </div>  
-                
+                <div className="text-center">
+                  <span className="txt2">
+                    Already having an account? <Link to="/login" className="signup-link">Login</Link>
+                  </span>
+                </div>
               </div>
             </form>
             </div>

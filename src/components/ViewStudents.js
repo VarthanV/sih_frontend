@@ -22,30 +22,35 @@ export default function ViewStudents() {
       .then(data => setStudents(data));
   },[]);
   return (
-    <div className="container">
-       <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">S NO </th>
-      <th scope="col">Image </th>
-      <th scope="col">Name </th>
-      <th scope="col">Gender</th>
-      <th scope="col" > Age </th>
-    </tr>
-  </thead>
-  <tbody>
+    <div className="">
+      <Navbar></Navbar>
+      <div className="container pt-5 mt-5">
+        <Link to="/addchild" className="btn btn-info">add students</Link>
+        <h3 className="pb-3">Students</h3>
+       <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">S NO </th>
+            <th scope="col">Image </th>
+            <th scope="col">Name </th>
+            <th scope="col">Gender</th>
+            <th scope="col" > Age </th>
+          </tr>
+        </thead>
+        <tbody>
 
-      {students.map((item,index) =>(
-        <tr key={index}>
-<th scope="row">{index+1}</th>
-        <td><img src ={baseImgRoute+item.image} alt={item.name} width="50"></img></td>
-      <td><Link  to={"student/"+item.unique_id}>{item.name}</Link> </td>
-      <td>{item.gender}</td>
-      <td>{item.age}</td>
-      </tr>
-      ))}
-  </tbody>
-  </table>
+          {students.map((item,index) =>(
+            <tr key={index}>
+              <th scope="row">{index+1}</th>
+            <td><img src ={baseImgRoute+item.image} alt={item.name} width="50"></img></td>
+          <td><Link  to={"student/"+item.unique_id}>{item.name}</Link> </td>
+          <td>{item.gender}</td>
+          <td>{item.age}</td>
+          </tr>
+          ))}
+        </tbody>
+      </table>
+      </div>
     </div>
   );
 }
