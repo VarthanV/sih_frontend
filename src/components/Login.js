@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { loginRoute } from "./helperConstants";
-import Navbar from './navbar';
-import './login.css';
-import { BrowserRouter as Route,Link } from 'react-router-dom';
+import '../css/login.css';
+import {Link} from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 
 export default function Login() {
+  const history = useHistory()
   const [error, setError] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [password, setPassowrd] = useState("");
   const [email, setEmail] = useState("");
 
@@ -26,7 +28,13 @@ export default function Login() {
       .catch(err => {
         console.log(err);
         setError(true);
-      });
+      }).then(e => {
+        if(!error){
+          setRedirect(true);
+        }
+      }
+        
+      );
   };
   return (
 
@@ -45,8 +53,16 @@ export default function Login() {
                       Incorrect email or password ,Please try again later
                     </p>
                   ) : (
-                    <div> </div>
+                    <div></div>
+                    
                   )}
+                  {
+                    redirect === true ? (
+                      history.push("/students")
+                    ) : (
+                      console.log(" ")
+                    )
+                  }
                   <div>
                     <div className="wrap-input100">
                       <input
@@ -74,13 +90,13 @@ export default function Login() {
                       <span className="focus-input100"></span>
                       <span className="label-input100">Password</span>
                     </div>
-                    <div class="container-login100-form-btn">
-                      <button type="submit" class="login100-form-btn">
+                    <div className="container-login100-form-btn">
+                      <button type="submit" className="login100-form-btn">
                         Login
                       </button>
                     </div>
-                    <div class="text-center">
-                      <span class="txt2">
+                    <div className="text-center">
+                      <span className="txt2">
                         Don't have an account? <Link to="/register" className="signup-link">Sign Up</Link>
                       </span>
                     </div>

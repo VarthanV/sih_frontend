@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { addStudentRoute } from "./helperConstants";
+import { useHistory } from 'react-router-dom'
 import Navbar from './navbar';
-import './login.css';
+import '../css/login.css';
 import axios from "axios";
 export default function AddChild() {
+  const history = useHistory()
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState(false);
@@ -29,7 +31,7 @@ export default function AddChild() {
     setImageFile(e.target.files[0]);
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      console.log(reader.result);
+      // console.log(reader.result);
 
       setImgURL(reader.result);
     };
@@ -61,25 +63,25 @@ export default function AddChild() {
         "content-type": "application/form-data",
         Authorization: localStorage.getItem("token")
       }
-    })
-      .then(res => res.json())
-      .then(data => {
+    }).then(data => {
         console.log(data);
-      })
-      .catch(err => setError(true));
+        history.push("/students")
+      }).catch(err => console.log(err));
+      
+      
   };
   return (
-    <div>
+    <div className=" addChildBody ">
       <Navbar></Navbar>
       
-      <div className=" container signup-card">
-        <div>
+      <div className="signup-card">
+        <div className="loginformcontainer">
           <div className="container-login100">
             <div className="wrap-login100">
             
         <form onSubmit={e => handleSubmit(e)} className="login100-form">
               <span className="login100-form-title">
-                Add Child
+                Register
               </span>
               {error === true ? (
           <p className="alert alert-danger" role="alert">
@@ -97,6 +99,7 @@ export default function AddChild() {
                       <br></br>
                       <hr></hr>
                       <input
+                        required
                         type="file"
                         id="uploadimg"
                         className="file-upload"
@@ -105,13 +108,13 @@ export default function AddChild() {
                         accept="image/*"
                         onChange={e => handleFileUpload(e)}
                       />
-                      <label for="uploadimg" className="btn upload-btn"> Upload Image </label>
+                      <label htmlFor="uploadimg" className="btn upload-btn"> Upload Image </label>
                 </div>
               </div>
               <div className="col">
                 <div className="row">
                   <div className="user col">
-                    <label for="childFirstName" className="emp-id">First Name</label>
+                    <label htmlFor="childFirstName" className="emp-id">First Name</label>
                     <input
                       className="form-control"
                       type="text"
@@ -124,7 +127,7 @@ export default function AddChild() {
                     ></input>
                   </div>
                   <div className="user col">
-                    <label for="childLastName" className="emp-id">Last Name</label>
+                    <label htmlFor="childLastName" className="emp-id">Last Name</label>
                     <input
                       className="form-control"
                       id="childLastName"
@@ -139,7 +142,7 @@ export default function AddChild() {
                 </div>
                 <div className="row">
                   <div className="user col">
-                    <label for="childAge" className="emp-id">Age</label>
+                    <label htmlFor="childAge" className="emp-id">Age</label>
                     <input
                       className="form-control"
                       type="number"
@@ -152,7 +155,7 @@ export default function AddChild() {
                     ></input>{" "}
                   </div>
                   <div className="user col">
-                    <label for="childCity" className="emp-id">City</label>
+                    <label htmlFor="childCity" className="emp-id">City</label>
                     <input
                       className="form-control"
                       type="text"
@@ -167,7 +170,7 @@ export default function AddChild() {
                 </div>
                 <div className="row">
                   <div className="user col">
-                    <label for="childDistrict" className="emp-id">District</label>
+                    <label htmlFor="childDistrict" className="emp-id">District</label>
                     <input
                       className="form-control"
                       id="childDistrict"
@@ -180,7 +183,7 @@ export default function AddChild() {
                     ></input>{" "}
                   </div>
                   <div className="user col">
-                    <label for="childSchoolName" className="emp-id">School Name</label>
+                    <label htmlFor="childSchoolName" className="emp-id">School Name</label>
                     <input
                       className="form-control"
                       id="childSchoolName"
@@ -196,7 +199,7 @@ export default function AddChild() {
             </div>
             <div className="row bottom-layer">
               <div className="user1">
-                <label for="childAadhar" className="emp-id">Aadhar Number</label>
+                <label htmlFor="childAadhar" className="emp-id">Aadhar Number</label>
                 <input
                   className="form-control"
                   type="number"
@@ -205,31 +208,29 @@ export default function AddChild() {
                   onChange={e => handleChange(setAadharNo, e.target.value)}
                   placeholder="Enter your Aadhar No "
                   autoComplete="off"
-                  required
                 ></input>{" "}
               </div>
               <div className="user1">
-                <label for="childGender" className="emp-id">Gender</label>
+                <label htmlFor="childGender" className="emp-id">Gender</label>
                 <select 
+                  required
                   className="form-control" 
                   id="employeeGender"
                   value={gender}
-                  onChange={e => handleChange(setGender, e.target.value)}
-                  required
+                  onChange={e => handleChange(setGender, e.target.value)} 
                 >
-                  <option>Choose . . .</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Transgender</option>
+                  <option value="">Choose . . .</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Transgender">Transgender</option>
                 </select>
               </div>
               <div className="user1">
-                <label for="childBioParent" className="emp-id"> Has Biological Parent ?</label>
+                <label htmlFor="childBioParent" className="emp-id"> Has Biological Parent ?</label>
                 <input
                   type="checkbox"
                   id="childBioParent"
                   value={hasBiologicalParent}
-                  required
                   onChange={() => {
                     setBiologicalParent(!hasBiologicalParent);
                     console.log(hasBiologicalParent);
@@ -237,36 +238,34 @@ export default function AddChild() {
                 ></input>{" "}
               </div>
               <div className="user1">
-                <label for="childCWC" className="emp-id"> Is CWC Eligible?</label>
+                <label htmlFor="childCWC" className="emp-id"> Is CWC Eligible?</label>
                 <input
                   type="checkbox"
                   id="childCWC"
                   value={CWCeligible}
-                  required
                   onChange={() => {
                     setCWCeligible(!CWCeligible);
                   }}
                 ></input>{" "}
               </div>
               <div className="user1">
-                <label for="childParentLeft" className="emp-id"> Has Parent Left ?</label>
+                <label htmlFor="childParentLeft" className="emp-id"> Has Parent Left ?</label>
                 <input
                   type="checkbox"
                   id="childParentLeft"
                   value={parentLeft}
-                  required
                   onChange={() => {
                     setparentLeft(!parentLeft);
                   }}
                 ></input>{" "}
               </div>
               <div className="user1">
-                <label for="childAddress" className="emp-id">Address</label>
+                <label htmlFor="childAddress" className="emp-id">Address</label>
                 <textarea
                   value={address}
                   className="form-control"
                   id="childAddress"
-                  rows="3"
+                  rows="2"
                   onChange={e => handleChange(setAddress, e.target.value)}
                 ></textarea>
               </div>

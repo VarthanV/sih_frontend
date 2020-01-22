@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { attendanceRoute, attendanceUpdateRoute } from "./helperConstants";
 import { Link, useHistory } from "react-router-dom";
-import Navbar from './navbar';
 
 export default function Attendance() {
   const [dummy, setDummy] = useState(0);
