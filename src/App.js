@@ -8,6 +8,7 @@ import ViewStudents from "./components/ViewStudents";
 import StudentDetail from "./components/StudentDetail";
 import Attendance from "./components/Attendance";
 import AddGuardians from "./components/AddGuardians";
+import AddAchievements from "./components/AddAchievements";
 
 function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/student/:id/addguardian" exact component={AddGuardians}></Route>
         <Route path="/attendance" exact component={Attendance}></Route>
         <Route path="/" exact component={Login}></Route>
+        <Route path= "/student/:id/addachievements" exact component ={AddAchievements}></Route>
       </div>
     </Router>
   );

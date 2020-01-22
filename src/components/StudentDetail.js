@@ -5,6 +5,7 @@ import Navbar from "./navbar";
 
 import { Link } from "react-router-dom";
 import Guardians from "./Guardians";
+import Achievements from "./Achievements";
 export default function StudentDetail(props) {
   const id = props.match.params.id;
   const [student, setStudent] = useState({});
@@ -206,6 +207,9 @@ export default function StudentDetail(props) {
               <div className="col-4 detail-edit">
                 <Link to={id + "/addguardian"}>Add Guardian</Link>
               </div>
+              <div className="col-4 detail-edit">
+                <Link to={id + "/addachievements"}>Add Achievement</Link>
+              </div>
             </div>
             <div className="row pt-5 justify-content-center">
               {guardians.length === 0
@@ -216,6 +220,17 @@ export default function StudentDetail(props) {
                       uniqueid={item.unique_id}
                       image={item.image}
                     ></Guardians>
+                  ))}
+            </div>
+            <div className="row pt-5 justify-content-center">
+              {achievements.length === 0
+                ? "No guardians available"
+                : achievements.map(item => (
+                    <Achievements
+                      image={item.image}
+                      title={item.title}
+                      description={item.description}
+                    ></Achievements>
                   ))}
             </div>
           </div>
