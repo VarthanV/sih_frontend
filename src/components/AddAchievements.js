@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Navbar from "./navbar";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
 import { addAchievementRoute } from "./helperConstants";
 export default function AddAchievements(props) {
+  const history = useHistory()
   const id = props.match.params.id;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -40,7 +41,10 @@ export default function AddAchievements(props) {
         Authorization: localStorage.getItem("token")
       }
     })
-      .then(data => console.log(data))
+      .then(data => {
+        history.push("/student/" + id)
+        console.log(data)
+      })
       .catch(err => console.log(err));
   };
   const handleChange = (setFunc, value) => {
@@ -48,7 +52,7 @@ export default function AddAchievements(props) {
   };
   return (
     <div className=" addChildBody mt-10 pt-10 ">
-      <Navbar></Navbar>
+    
 
       <div className="signup-card">
         <div className="loginformcontainer">

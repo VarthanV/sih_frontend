@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { studentDetailRoute, baseImgRoute } from "./helperConstants";
 import "../css/login.css";
-import Navbar from "./navbar";
 
 import { Link } from "react-router-dom";
 import Guardians from "./Guardians";
@@ -39,56 +38,8 @@ export default function StudentDetail(props) {
 
   return (
     <div>
-      <Navbar></Navbar>
+  
       <div className="container">
-        <div className="">
-          {/* <div className="card-body">
-          <div className="row">
-            <img
-              className="avatar mr-10"
-              src={baseImgRoute + student.image}
-              alt={student.name}
-            ></img>
-            <h4 className="lead ml-10"> {student.name}</h4>
-          </div>
-          <div className="left-align pt-5">
-            <h3> Address :</h3> <p> {student.address}</p>
-          </div>
-          <p> Gender : {student.gender}</p>
-          <p> Age :{student.age}</p>
-          <p> District : {student.district}</p>
-          <div>
-            
-            Has Biological Parent :{student.has_biologicalParent ?  <p>Yes</p>  :  <p>No</p> }
-          </div>
-          <p> School Name : {student.school_name}</p>
-        </div> */}
-          {/* <div className="card">
-          <h3> Guardians </h3>
-          {student.guardians !== undefined ? (
-            student.guardians.map((item, index) => (
-              <div key={index} className="row">
-                <img
-                  className="avatar mr-10"
-                  src={baseImgRoute + item.image}
-                  alt={item.name}
-                ></img>
-                <h4 className="lead ml-10"> {item.name}</h4>
-                <Link
-                  to={"addguardian/" + student.unique_id}
-                  className="btn btn-danger"
-                >
-                  {" "}
-                  Add Guardian{" "}
-                </Link>
-              </div>
-            ))
-          ) : (
-            <div></div>
-          )}
-        </div> */}
-        </div>
-
         <div className="container">
           <div>
             <div className="row  pt-5 mt-5">
@@ -182,22 +133,13 @@ export default function StudentDetail(props) {
                   </div>
                   <div className="user col">
                     <div className="row emp-di">
-                      Achievements :
-                      <div className="emp-d">
-                        {achievements.length === 0
-                          ? "No achievements yet"
-                          : "Achievements available"}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="user col">
-                    <div className="row emp-di">
                       Address:
                       <div className="emp-d">{student.address}</div>
                     </div>
                   </div>
+                </div>
+                <div className="row">
+                  
                   <div className="user col"></div>
                 </div>
               </div>
@@ -207,32 +149,48 @@ export default function StudentDetail(props) {
               <div className="col-4 detail-edit">
                 <Link to={id + "/addguardian"}>Add Guardian</Link>
               </div>
-              <div className="col-4 detail-edit">
-                <Link to={id + "/addachievements"}>Add Achievement</Link>
-              </div>
             </div>
-            <div className="row pt-5 justify-content-center">
+            
               {guardians.length === 0
-                ? "No guardians available"
+                ? ( <div className="row pt-5 justify-content-centent">No guardians</div>)
                 : guardians.map(item => (
+                  <div className="pt-5">
                     <Guardians
                       name={item.name}
                       uniqueid={item.unique_id}
                       image={item.image}
+                      age={item.age}
+                      city={item.city}
+                      district={item.district}
+                      gender={item.gender}
+                      aadhar_no={item.aadhar_no}
+                      marital_status={item.is_married}
+                      has_child={item.has_child}
+                      address={item.address}
+                      no_of_child={item.no_of_child}
                     ></Guardians>
+                  </div>
                   ))}
-            </div>
-            <div className="row pt-5 justify-content-center">
+            
+              <div className="row pt-5 pl-1">
+                <div className="col-8 detail-title">Achievement Details</div>
+                <div className="col-4 detail-edit">
+                  <Link to={id + "/addachievements"}>Add Achievement</Link>
+                </div>
+              </div>
+            
               {achievements.length === 0
-                ? "No guardians available"
+                ? (<div className="row pt-5 justify-content-center">No Achievements yet</div>)
                 : achievements.map(item => (
+                  <div className="pt-5 pl-3">
                     <Achievements
                       image={item.image}
                       title={item.title}
                       description={item.description}
                     ></Achievements>
+                    </div>
                   ))}
-            </div>
+            
           </div>
         </div>
       </div>

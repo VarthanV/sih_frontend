@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { attendanceRoute, attendanceUpdateRoute } from "./helperConstants";
 import { Link, useHistory } from "react-router-dom";
-import Navbar from "./navbar";
+
 
 export default function Attendance() {
   const [dummy, setDummy] = useState(0);
@@ -81,7 +81,7 @@ export default function Attendance() {
           students[index].is_present = data.is_present;
           students[index].attendance_marked = true;
           console.log(students);
-          
+
           return [...students];
         });
         history.push("/attendance");
@@ -98,13 +98,18 @@ export default function Attendance() {
   };
   return (
     <div>
-      <div className="container mt-5">
+    
+      <div className="container">
+      <div className="row pt-5 pl-1">
+        <div className="col-8 detail-title">Attendance</div>
+      </div>
+      <div className="pt-3">
         <table class="table">
           <thead>
             <tr>
               <th scope="col">S NO </th>
               <th scope="col">Name </th>
-              <th scope="col"> Attendance </th>
+              <th scope="col">Attendance </th>
             </tr>
           </thead>
           <tbody>
@@ -115,55 +120,52 @@ export default function Attendance() {
                 <td>
                   <Link to={"student/" + item.unique_id}>{item.name}</Link>{" "}
                 </td>
-                <td>{item.gender}</td>
-                <td>{item.age}</td>
-                <td>
-                  {" "}
-                  {item.attendance_marked === true ? (
-                    <h4>
-                      {" "}
-                      Attendance Marked (
+                {item.attendance_marked === true ? (
+                  <td>
+                    <div style={{ fontSize: "18px", fontWeight: "500" }}>
                       {item.is_present === true ? (
-                        <span> Present</span>
+                        <span style={{ color: "green" }}> Present</span>
                       ) : (
-                        <span> Absent</span>
-                      )}
-                      ){" "}
-                    </h4>
-                  ) : (
-                    <div className="row">
-                      {" "}
-                      <button
-                        className="btn btn-primary"
-                        value={true}
-                        onClick={e =>
-                          online
-                            ? markAttendance(e, index, item.unique_id)
-                            : markAttendanceOffline(e, index)
-                        }
-                      >
-                        {" "}
-                        Present{" "}
-                      </button>{" "}
-                      <button
-                        className="btn btn-danger ml-5"
-                        value={false}
-                        onClick={e =>
-                          online
-                            ? markAttendance(e, index, item.unique_id)
-                            : markAttendanceOffline(e, index)
-                        }
-                      >
-                        {" "}
-                        Absent
-                      </button>
+                          <span style={{ color: "red" }}> Absent</span>
+                        )}
                     </div>
-                  )}{" "}
-                </td>
+                  </td>
+                ) : (
+                    <td>
+                      <div className="row">
+
+                        <button
+                          className="btn btn-primary"
+                          value={true}
+                          onClick={e =>
+                            online
+                              ? markAttendance(e, index, item.unique_id)
+                              : markAttendanceOffline(e, index)
+                          }
+                        >
+
+                          Present
+                      </button>
+                        <button
+                          className="btn btn-danger ml-5"
+                          value={false}
+                          onClick={e =>
+                            online
+                              ? markAttendance(e, index, item.unique_id)
+                              : markAttendanceOffline(e, index)
+                          }
+                        >
+
+                          Absent
+                      </button>
+                      </div></td>
+                  )}
+
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

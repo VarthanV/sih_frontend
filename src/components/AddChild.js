@@ -85,8 +85,8 @@ export default function AddChild() {
   };
   return (
     <div className=" addChildBody ">
-      <Navbar></Navbar>
-
+   
+      
       <div className="signup-card">
         <div className="loginformcontainer">
           <div className="container-login100">
