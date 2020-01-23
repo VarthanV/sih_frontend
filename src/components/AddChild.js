@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addStudentRoute } from "./helperConstants";
 import { useHistory } from "react-router-dom";
-import Navbar from "./navbar";
+
 import "../css/login.css";
 import md5 from "md5";
 import axios from "axios";
@@ -51,6 +51,8 @@ export default function AddChild() {
   };
 
   const handleSubmit = e => {
+    console.log(fingerPrintHash);
+    
     e.preventDefault();
     const formData = new FormData();
     formData.append("aadhar_no", aadharNo);
@@ -67,6 +69,7 @@ export default function AddChild() {
     formData.append("district", district);
     formData.append("school_name", schoolName);
     formData.append("date_registered", null);
+    formData.append("hash",fingerPrintHash);
     formData.append("city", city);
     axios({
       method: "post",

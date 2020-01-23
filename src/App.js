@@ -9,57 +9,86 @@ import StudentDetail from "./components/StudentDetail";
 import Attendance from "./components/Attendance";
 import AddGuardians from "./components/AddGuardians";
 import AddAchievements from "./components/AddAchievements";
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar";
 import UserContextProvider from "./context/userContext";
+import StudentContextProvider from "./context/StudentContext";
 
 function App() {
   const [authInfo, setAuthInfo] = useState({
     isLogin: true,
     token: null
-  })
+  });
 
   useEffect(() => {
     localStorage.setItem("center_id", "12345678");
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
 
     if (token) {
       setAuthInfo({
         isLogin: true,
         token
-      })
+      });
     }
-
   }, []);
 
-  const authHandler = (token) => {
+  const authHandler = token => {
     if (token) {
       setAuthInfo({
         isLogin: true,
         token
-      })
+      });
     } else {
       setAuthInfo({
         isLogin: false,
         token: null
-      })
+      });
     }
-  }
+  };
 
   return (
     <>
-      <UserContextProvider >
+      <UserContextProvider>
         <Router>
           <Navbar token={authInfo.token} />
           <Switch>
-            <Route path="/register" authHandler={authHandler} exact component={SignUp}></Route>
-            <Route path="/login" authHandler={authHandler} exact component={Login}></Route>
+            <Route
+              path="/register"
+              authHandler={authHandler}
+              exact
+              component={SignUp}
+            ></Route>
+            <Route
+              path="/login"
+              authHandler={authHandler}
+              exact
+              component={Login}
+            ></Route>
             <Route path="/addchild" exact component={AddChild}></Route>
-            <Route path="/students" exact component={ViewStudents}></Route>
-            <Route path="/student/:id" exact component={StudentDetail}></Route>
-            <Route path="/student/:id/addguardian" exact component={AddGuardians}></Route>
-            <Route path="/attendance" exact component={Attendance}></Route>
-            <Route path="/" authHandler={authHandler} exact component={Login}></Route>
-            <Route path="/student/:id/addachievements" exact component={AddAchievements}></Route>
+            <StudentContextProvider>
+              <Route path="/students" exact component={ViewStudents}></Route>
+              <Route
+                path="/student/:id"
+                exact
+                component={StudentDetail}
+              ></Route>
+              <Route
+                path="/student/:id/addguardian"
+                exact
+                component={AddGuardians}
+              ></Route>
+              <Route path="/attendance" exact component={Attendance}></Route>
+            </StudentContextProvider>
+            <Route
+              path="/"
+              authHandler={authHandler}
+              exact
+              component={Login}
+            ></Route>
+            <Route
+              path="/student/:id/addachievements"
+              exact
+              component={AddAchievements}
+            ></Route>
           </Switch>
         </Router>
       </UserContextProvider>

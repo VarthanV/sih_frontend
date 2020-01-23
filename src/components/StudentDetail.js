@@ -1,16 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { studentDetailRoute, baseImgRoute } from "./helperConstants";
 import "../css/login.css";
-
+import { StudentContext } from "../context/StudentContext";
+import md5 from 'md5';
 import { Link } from "react-router-dom";
 import Guardians from "./Guardians";
 import Achievements from "./Achievements";
 export default function StudentDetail(props) {
+  const { attendance, getStudent, addStudents } = useContext(StudentContext);
   const id = props.match.params.id;
   const [student, setStudent] = useState({});
   const [achievements, setAchievements] = useState([]);
   const [guardians, setGuardians] = useState([]);
+  const [fingerPrintHash,setFingerPrintHash] = useState("");
+  const hashImage = e =>{
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
 
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const hash = md5(reader.result);
+      setFingerPrintHash(hash);
+      console.log(fingerPrintHash);
+      
+
+  }
+}
   useEffect(() => {
     let url = new URL(studentDetailRoute);
 
@@ -33,12 +49,15 @@ export default function StudentDetail(props) {
         setStudent(data);
         setAchievements(data.achievements);
         setGuardians(data.guardians);
+        addStudents();
+        getStudent(id);
+        console.log(attendance);
+
       });
   }, []);
 
   return (
     <div>
-  
       <div className="container">
         <div className="container">
           <div>
@@ -139,7 +158,15 @@ export default function StudentDetail(props) {
                   </div>
                 </div>
                 <div className="row">
-                  
+                  {attendance.attendance_marked === true ? (
+                    <div> Marked </div>
+                  ) : (
+                    <div>
+                      {" "}
+                      <h3> Upload</h3>
+                      <input type ="file" className="btn btn-primary" onChange={e =>hashImage(e)}/>  {" "}
+                    </div>
+                  )}
                   <div className="user col"></div>
                 </div>
               </div>
@@ -150,47 +177,54 @@ export default function StudentDetail(props) {
                 <Link to={id + "/addguardian"}>Add Guardian</Link>
               </div>
             </div>
-            
-              {guardians.length === 0
-                ? ( <div className="row pt-5 justify-content-centent">No guardians</div>)
-                : guardians.map(item => (
-                  <div className="pt-5">
-                    <Guardians
-                      name={item.name}
-                      uniqueid={item.unique_id}
-                      image={item.image}
-                      age={item.age}
-                      city={item.city}
-                      district={item.district}
-                      gender={item.gender}
-                      aadhar_no={item.aadhar_no}
-                      marital_status={item.is_married}
-                      has_child={item.has_child}
-                      address={item.address}
-                      no_of_child={item.no_of_child}
-                    ></Guardians>
-                  </div>
-                  ))}
-            
-              <div className="row pt-5 pl-1">
-                <div className="col-8 detail-title">Achievement Details</div>
-                <div className="col-4 detail-edit">
-                  <Link to={id + "/addachievements"}>Add Achievement</Link>
-                </div>
+
+            {guardians.length === 0 ? (
+              <div className="row pt-5 justify-content-centent">
+                No guardians
               </div>
-            
-              {achievements.length === 0
-                ? (<div className="row pt-5 justify-content-center">No Achievements yet</div>)
-                : achievements.map(item => (
-                  <div className="pt-5 pl-3">
-                    <Achievements
-                      image={item.image}
-                      title={item.title}
-                      description={item.description}
-                    ></Achievements>
-                    </div>
-                  ))}
-            
+            ) : (
+              guardians.map(item => (
+                <div className="pt-5">
+                  <Guardians
+                    name={item.name}
+                    uniqueid={item.unique_id}
+                    image={item.image}
+                    age={item.age}
+                    city={item.city}
+                    district={item.district}
+                    gender={item.gender}
+                    aadhar_no={item.aadhar_no}
+                    marital_status={item.is_married}
+                    has_child={item.has_child}
+                    address={item.address}
+                    no_of_child={item.no_of_child}
+                  ></Guardians>
+                </div>
+              ))
+            )}
+
+            <div className="row pt-5 pl-1">
+              <div className="col-8 detail-title">Achievement Details</div>
+              <div className="col-4 detail-edit">
+                <Link to={id + "/addachievements"}>Add Achievement</Link>
+              </div>
+            </div>
+
+            {achievements.length === 0 ? (
+              <div className="row pt-5 justify-content-center">
+                No Achievements yet
+              </div>
+            ) : (
+              achievements.map(item => (
+                <div className="pt-5 pl-3">
+                  <Achievements
+                    image={item.image}
+                    title={item.title}
+                    description={item.description}
+                  ></Achievements>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
