@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import  axios  from "axios";
-import Navbar from "./navbar";
+import { useHistory } from 'react-router-dom'
+import axios from "axios";
 import "../css/login.css";
 import { addGuardianRoute } from "./helperConstants";
 export default function AddGuardians(props) {
+  const history = useHistory();
   const id = props.match.params.id;
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -49,10 +50,10 @@ export default function AddGuardians(props) {
     formData.append("district", district);
     formData.append("city", city);
     formData.append("married", isMarried);
-    formData.append("child",hasChild);
-    formData.append("no_child",noOfChild);
+    formData.append("child", hasChild);
+    formData.append("no_child", noOfChild);
     formData.append("unique_id", id);
-    formData.append("email",email);
+    formData.append("email", email);
     axios({
       method: "post",
       url: addGuardianRoute,
@@ -63,159 +64,23 @@ export default function AddGuardians(props) {
       }
     })
       .then(data => {
+        
         console.log(data);
+        history.push("/student/" + id)
       })
       .catch(err => console.log(err));
   };
 
   return (
     <div>
-      <Navbar></Navbar>
       <div className="container">
-        {/* <form onSubmit={e => handleSubmit(e)}>
-        <div className="form-group">
-          {imgURL ? (
-            <img src={imgURL} alt="profile" width="30%"></img>
-          ) : (
-            <div> </div>
-          )}
-          <h3> Upload your image </h3> <br></br>
-          <input
-            type="file"
-            className="btn btn-primary"
-            size="70"
-            accept="image/*"
-            onChange={e => handleFileUpload(e)}
-          />
-          <input
-            className="form-control mt-5"
-            type="email"
-            value={email}
-            onChange={e => handleChange(setEmail, e.target.value)}
-            placeholder="Enter your Email "
-            autoComplete="off"
-            required
-          ></input>{" "}
-          <br></br>
-          <input
-            className="form-control mt-5"
-            type="text"
-            value={age}
-            onChange={e => handleChange(setFirstName, e.target.value)}
-            placeholder="Enter your  First Name "
-            autoComplete="off"
-            required
-          ></input>{" "}
-          <br></br>
-          <input
-            className="form-control mt-5"
-            type="text"
-            value={gender}
-            onChange={e => handleChange(setGender, e.target.value)}
-            placeholder="Gender"
-            autoComplete="off"
-            required
-          ></input>{" "}
-          <br></br>
-          <textarea
-            value={address}
-            onChange={e => handleChange(setAddress, e.target.value)}
-          ></textarea>
-          <input
-            className="form-control mt-5"
-            type="text"
-            value={age}
-            onChange={e => handleChange(setLastName, e.target.value)}
-            placeholder="Enter your  Last Name "
-            autoComplete="off"
-            required
-          ></input>{" "}
-          <br></br>
-          <input
-            className="form-control mt-5"
-            type="text"
-            value={age}
-            onChange={e => handleChange(setAge, e.target.value)}
-            placeholder="Enter your  Age  "
-            autoComplete="off"
-            required
-          ></input>{" "}
-          <br></br>
-          <input
-            className="form-control mt-5"
-            type="text"
-            value={city}
-            onChange={e => handleChange(setCity, e.target.value)}
-            placeholder="Enter your  City "
-            autoComplete="off"
-            required
-          ></input>{" "}
-          <br></br>
-          <input
-            className="form-control mt-5"
-            type="text"
-            value={district}
-            onChange={e => handleChange(setDistrict, e.target.value)}
-            placeholder="Enter your  District "
-            autoComplete="off"
-            required
-          ></input>{" "}
-          <br></br>
-          <input
-            className="form-control mt-5"
-            type="text"
-            value={aadharNo}
-            onChange={e => handleChange(setAadharNo, e.target.value)}
-            placeholder="Enter your Aadhar No "
-            autoComplete="off"
-            required
-          ></input>{" "}
-          <br></br>
-          <label> Is married ?</label>
-          <input
-            type="checkbox"
-            value={isMarried}
-            required
-            onChange={() => {
-              setIsMarried(!isMarried);
-              console.log(isMarried);
-            }}
-          ></input>{" "}
-          <label> Has child ?</label>
-          <input
-            type="checkbox"
-            value={hasChild}
-            required
-            onChange={() => {
-              setHasChild(!hasChild);
-            }}
-          ></input>{" "}
-          <input
-            type="text"
-            value={noOfChild}
-            onChange={e => handleChange(setChild, parseInt(e.target.value))}
-          ></input>
-          <br></br>
-          <button type="submit" className="btn btn-primary">
-            {" "}
-            Submit{" "}
-          </button>
-        </div>
-      </form> */}
+
         <div className="signup-card">
           <div className="loginformcontainer">
             <div className="container-login100">
               <div className="wrap-login100">
                 <form onSubmit={e => handleSubmit(e)} className="login100-form">
                   <span className="login100-form-title">Register</span>
-                  {/* {error === true ? (
-          <p className="alert alert-danger" role="alert">
-            {" "}
-            Email or Username already exist,Please login with your credentials{" "}
-          </p>
-        ) : (
-          <div> </div>
-        )} */}
                   <div className="form-group">
                     <div className="top-layer row">
                       <div className="col-sm-4 col-lg-3">
@@ -227,13 +92,13 @@ export default function AddGuardians(props) {
                               className="user-img"
                             ></img>
                           ) : (
-                            <img
-                              className="user-img"
-                              src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                              alt="profile"
-                              width="30%"
-                            ></img>
-                          )}
+                              <img
+                                className="user-img"
+                                src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                                alt="profile"
+                                width="30%"
+                              ></img>
+                            )}
                           <br></br>
                           <hr></hr>
                           <input
@@ -365,7 +230,7 @@ export default function AddGuardians(props) {
                         <div className="row">
                           <div className="user col">
                             <label htmlFor="childEmail" className="emp-id">Email</label>
-                            <input 
+                            <input
                               className="form-control"
                               type="email"
                               id="childEmail"
@@ -462,7 +327,7 @@ export default function AddGuardians(props) {
                     <div className="submit-layer">
                       <button type="submit" className="btn submit-btn">
                         {" "}
-                        Add Child{" "}
+                        Add Guardian{" "}
                       </button>
                     </div>
                   </div>

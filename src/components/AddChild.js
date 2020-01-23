@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { addStudentRoute } from "./helperConstants";
 import { useHistory } from 'react-router-dom'
-import Navbar from './navbar';
 import '../css/login.css';
 import axios from "axios";
 export default function AddChild() {
@@ -72,7 +71,7 @@ export default function AddChild() {
   };
   return (
     <div className=" addChildBody ">
-      <Navbar></Navbar>
+   
       
       <div className="signup-card">
         <div className="loginformcontainer">

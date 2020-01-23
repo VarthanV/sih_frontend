@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { studentsRoute, baseImgRoute } from "./helperConstants";
-import Navbar from "./navbar";
 import { Link } from "react-router-dom";
 
 export default function ViewStudents() {
@@ -28,20 +27,22 @@ export default function ViewStudents() {
   }, []);
   return (
     <div className="">
-      <Navbar></Navbar>
-      <div className="container pt-5 mt-5">
-        <Link to="/addchild" className="btn btn-info">
-          add students
-        </Link>
-        <h3 className="pb-3">Students</h3>
+      <div className="container pt-2">
+        <div className="row pt-5 pl-1">
+          <div className="col-8 detail-title">Students</div>
+          <div className="col-4 detail-edit">
+            <Link to="/addchild" className="btn btn-info">Add Student</Link>
+          </div>
+        </div>
+        <div className="pt-3">
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">S NO </th>
-              <th scope="col">Image </th>
-              <th scope="col">Name </th>
+              <th scope="col">S No</th>
+              <th scope="col">Image</th>
+              <th scope="col">Name</th>
               <th scope="col">Gender</th>
-              <th scope="col"> Age </th>
+              <th scope="col">Age</th>
             </tr>
           </thead>
           <tbody>
@@ -53,7 +54,7 @@ export default function ViewStudents() {
                     <img
                       src={baseImgRoute + item.image}
                       alt={item.name}
-                      width="50"
+                      width="30"
                     ></img>
                   </td>
                   <td>
@@ -68,6 +69,7 @@ export default function ViewStudents() {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );
