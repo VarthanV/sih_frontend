@@ -35,12 +35,16 @@ const StudentContextProvider = props => {
     );
     console.log(attendance);
   };
-  const markAttendance = hash =>{
+  const markPresent = hash =>{
+    if(attendance.fingerprint_hash === hash){
+      console.log("Equal hash ");
+      
+    }
       
   }
 
   return (
-    <StudentContext.Provider value={{ students, addStudents, getStudent,attendance }}>
+    <StudentContext.Provider value={{ students, addStudents, getStudent,attendance,markPresent }}>
       {props.children}
     </StudentContext.Provider>
   );

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Guardians from "./Guardians";
 import Achievements from "./Achievements";
 export default function StudentDetail(props) {
-  const { attendance, getStudent, addStudents } = useContext(StudentContext);
+  const { attendance, getStudent, addStudents ,markPresent } = useContext(StudentContext);
   const id = props.match.params.id;
   const [student, setStudent] = useState({});
   const [achievements, setAchievements] = useState([]);
@@ -23,6 +23,7 @@ export default function StudentDetail(props) {
       const hash = md5(reader.result);
       setFingerPrintHash(hash);
       console.log(fingerPrintHash);
+      markPresent(fingerPrintHash);
       
 
   }
