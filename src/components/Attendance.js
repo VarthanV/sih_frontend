@@ -14,7 +14,7 @@ export default function Attendance() {
   const updateAttendance = () => {
     if (localStorage.getItem("students") !== null) {
       const studentData = JSON.parse(localStorage.getItem("students"));
-      const data = studentData.filter(item =>  item.attendance_marked === true);
+      const data = studentData.filter(item =>  item.marked_offline === true);
       fetch(attendanceUpdateRoute, {
         method: "POST",
         body: JSON.stringify({ students: data }),
@@ -134,6 +134,7 @@ export default function Attendance() {
     setStudents(students => {
       students[index].is_present = false;
       students[index].attendance_marked = true;
+      students[index].marked_offline =true;
       console.log(students);
 
       return [...students];
@@ -156,6 +157,7 @@ export default function Attendance() {
         setStudents(students => {
           students[index].is_present = true;
           students[index].attendance_marked = true;
+          students[index].marked_offline =true;
           console.log(students);
 
           return [...students];
