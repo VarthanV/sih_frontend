@@ -12,11 +12,9 @@ export default function Attendance() {
     Authorization: localStorage.getItem("token")
   };
   const updateAttendance = () => {
-    console.log(localStorage.getItem("students"));
-
     if (localStorage.getItem("students") !== null) {
       const studentData = JSON.parse(localStorage.getItem("students"));
-      const data = studentData.filter(item => item.attendance_marked === true);
+      const data = studentData.filter(item =>  item.attendance_marked === true);
       fetch(attendanceUpdateRoute, {
         method: "POST",
         body: JSON.stringify({ students: data }),
@@ -27,6 +25,7 @@ export default function Attendance() {
           if (data["success"]) {
             localStorage.removeItem("students");
           }
+          localStorage.removeItem("students");
         })
         .catch(err => console.log(err));
     } else {
@@ -36,35 +35,35 @@ export default function Attendance() {
     if (navigator.onLine) {
       updateAttendance();
       setOnline(true);
+      let url = new URL(attendanceRoute);
+      let params = {
+        center_id: localStorage.getItem("center_id")
+      };
+      url.search = new URLSearchParams(params).toString();
+
+      fetch(url, {
+        method: "GET",
+        headers: headers
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log("From Attendance Page ");
+
+          console.log(data);
+          setStudents(data);
+          if (localStorage.getItem("students") === null) {
+            localStorage.setItem("students", JSON.stringify(data));
+          }
+        });
     } else {
       const studentData = JSON.parse(localStorage.getItem("students"));
       setStudents(studentData);
     }
-    let url = new URL(attendanceRoute);
-    let params = {
-      center_id: localStorage.getItem("center_id")
-    };
-    url.search = new URLSearchParams(params).toString();
-
-    fetch(url, {
-      method: "GET",
-      headers: headers
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log("From Attendance Page ");
-
-        console.log(data);
-        setStudents(data);
-        if (localStorage.getItem("students") === null) {
-          localStorage.setItem("students", JSON.stringify(data));
-        }
-      });
-    return () => localStorage.setItem("students", JSON.stringify(students));
   }, []);
   const [students, setStudents] = useState([]);
   const [online, setOnline] = useState(false);
   const history = useHistory();
+
   const markPresent = (e, index, id) => {
     e.preventDefault();
     let reader = new FileReader();
@@ -74,7 +73,7 @@ export default function Attendance() {
     reader.onloadend = () => {
       const hash = md5(reader.result);
       console.log(students[index].fingerprint_hash);
-    
+
       if (hash === students[index].fingerprint_hash) {
         const formData = new FormData();
         formData.append("unique_id", id);
@@ -129,14 +128,47 @@ export default function Attendance() {
         setDummy(dummy + 1);
       });
   };
-  const markAttendanceOffline = (e, index) => {
+  const markAbsentOffline = (e, index) => {
     e.preventDefault();
-    const value = e.target.value;
-    students[index].is_present = value;
-    students[index].attendance_marked = true;
-    setDummy(dummy);
+    console.log("Hey");
+    setStudents(students => {
+      students[index].is_present = false;
+      students[index].attendance_marked = true;
+      console.log(students);
+
+      return [...students];
+    });
+
     localStorage.setItem("students", JSON.stringify(students));
   };
+
+  const markPresentOffline = (e, index) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const hash = md5(reader.result);
+      console.log(students[index].fingerprint_hash);
+
+      if (hash === students[index].fingerprint_hash) {
+        setStudents(students => {
+          students[index].is_present = true;
+          students[index].attendance_marked = true;
+          console.log(students);
+
+          return [...students];
+        });
+
+        localStorage.setItem("students", JSON.stringify(students));
+      } else {
+        alert("Error");
+      }
+    };
+  };
+
+  // View
   return (
     <div>
       <div className="container">
@@ -181,7 +213,11 @@ export default function Attendance() {
                           name="upload"
                           size="70"
                           accept="image/*"
-                          onChange={e => markPresent(e, index, item.unique_id)}
+                          onChange={e =>
+                            online
+                              ? markPresent(e, index, item.unique_id)
+                              : markPresentOffline(e, index)
+                          }
                         />
                         <label htmlFor="uploadimg" className="btn upload-btn">
                           {" "}
@@ -193,7 +229,7 @@ export default function Attendance() {
                           onClick={e =>
                             online
                               ? markAbsent(e, index, item.unique_id)
-                              : markAttendanceOffline(e, index)
+                              : markAbsentOffline(e, index)
                           }
                         >
                           Absent
