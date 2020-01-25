@@ -158,18 +158,6 @@ export default function StudentDetail(props) {
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  {attendance.attendance_marked === true ? (
-                    <div> Marked </div>
-                  ) : (
-                    <div>
-                      {" "}
-                      <h3> Upload</h3>
-                      <input type ="file" className="btn btn-primary" onChange={e =>hashImage(e)}/>  {" "}
-                    </div>
-                  )}
-                  <div className="user col"></div>
-                </div>
               </div>
             </div>
             <div className="row pt-5">
