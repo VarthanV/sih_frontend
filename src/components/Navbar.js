@@ -31,16 +31,10 @@ const Navbar = () => {
         removeUser()
         history.push('/login')
     }
-    const loginButton = <div><li className="nav-item">
-        <Link to="/login" className="nav-link" href="#">Login</Link>
-    </li>
-        <li className="nav-item">
-            <Link to="/register" className="nav-link" href="#">Sign Up</Link>
-        </li></div>
+    const loginButton = <div>
+        </div>
     const logoutButton = <div>
-        <li className="nav-item">
-            <button onClick={logout} className="nav-link">Logout</button>
-        </li>
+        
     </div>
 
 
@@ -60,19 +54,35 @@ const Navbar = () => {
 
                 <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul className="navbar-nav">
-                        {!isLogin && (loginButton)}
+                        {!isLogin && (   
+                            <li className="nav-item">
+                                <Link to="/login" className="nav-link" href="#">Login</Link>
+                            </li>
+                        )}
 
-                        <li className="nav-item active">
-                            <Link to="/students" className="nav-link" href="#">Home <span className="sr-only">(current)</span></Link>
-                        </li>
+                        {!isLogin && (
+                            <li className="nav-item">
+                                <Link to="/register" className="nav-link" href="#">Sign Up</Link>
+                            </li>
+                        )}
 
+                        {isLogin && (
+                            <li className="nav-item active">
+                                <Link to="/students" className="nav-link" href="#">Home <span className="sr-only">(current)</span></Link>
+                            </li>
+                        )}
+                        
+                        {isLogin && (
+                            <li className="nav-item">
+                                <Link to="/attendance" className="nav-link">Attendance</Link>
+                            </li>
+                        )}
 
-
-                        <li className="nav-item">
-                            <Link to="/attendance" className="nav-link">Attendance</Link>
-                        </li>
-
-                        {isLogin  && (logoutButton)}
+                        {isLogin  && (
+                            <li className="nav-item">
+                                <button onClick={logout} className="nav-link">Logout</button>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </nav>
