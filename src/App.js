@@ -72,11 +72,14 @@ function App() {
                 exact
                 component={StudentDetail}
               ></Route>
-              <Route
-                path="/student/:id/addguardian"
-                exact
-                component={AddGuardians}
-              ></Route>
+              <Route path="/student/:id/addachievements" exact>
+                <AddAchievements />
+              </Route>
+
+              <Route path="/student/:id/addguardian" exact>
+                <AddGuardians></AddGuardians>
+              </Route>
+
               <Route path="/attendance" exact component={Attendance}></Route>
             </StudentContextProvider>
             <Route
@@ -84,16 +87,6 @@ function App() {
               authHandler={authHandler}
               exact
               component={Login}
-            ></Route>
-            <Route
-              path="/student/:id/addachievements"
-              exact
-              component={AddAchievements}
-            ></Route>
-             <Route
-              path="/student/:id/addvisit"
-              exact
-              component={GuardianVisit}
             ></Route>
           </Switch>
         </Router>

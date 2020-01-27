@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
-import { useHistory } from 'react-router-dom';
+import { useHistory,useParams  } from 'react-router-dom';
 import { addAchievementRoute } from "./helperConstants";
+
+
 export default function AddAchievements(props) {
   const history = useHistory()
-  const id = props.match.params.id;
+  const {id} = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState("");

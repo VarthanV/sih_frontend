@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom'
+import { useHistory,useParams } from 'react-router-dom'
 import axios from "axios";
 import "../css/login.css";
 import { addGuardianRoute } from "./helperConstants";
 export default function AddGuardians(props) {
   const history = useHistory();
-  const id = props.match.params.id;
+  const {id} =useParams();
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [lastName, setLastName] = useState("");
