@@ -14,7 +14,7 @@ export default function Attendance() {
   const updateAttendance = () => {
     if (localStorage.getItem("students") !== null) {
       const studentData = JSON.parse(localStorage.getItem("students"));
-      const data = studentData.filter(item =>  item.marked_offline === true);
+      const data = studentData.filter(item => item.marked_offline === true);
       fetch(attendanceUpdateRoute, {
         method: "POST",
         body: JSON.stringify({ students: data }),
@@ -25,7 +25,6 @@ export default function Attendance() {
           if (data["success"]) {
             localStorage.removeItem("students");
           }
-          localStorage.removeItem("students");
         })
         .catch(err => console.log(err));
     } else {
@@ -51,9 +50,8 @@ export default function Attendance() {
 
           console.log(data);
           setStudents(data);
-          if (localStorage.getItem("students") === null) {
-            localStorage.setItem("students", JSON.stringify(data));
-          }
+
+          localStorage.setItem("students", JSON.stringify(data));
         });
     } else {
       const studentData = JSON.parse(localStorage.getItem("students"));
@@ -78,6 +76,8 @@ export default function Attendance() {
         const formData = new FormData();
         formData.append("unique_id", id);
         formData.append("is_present", true);
+        console.log(formData);
+
         fetch(attendanceRoute, {
           method: "POST",
           body: formData,
@@ -134,7 +134,7 @@ export default function Attendance() {
     setStudents(students => {
       students[index].is_present = false;
       students[index].attendance_marked = true;
-      students[index].marked_offline =true;
+      students[index].marked_offline = true;
       console.log(students);
 
       return [...students];
@@ -157,7 +157,7 @@ export default function Attendance() {
         setStudents(students => {
           students[index].is_present = true;
           students[index].attendance_marked = true;
-          students[index].marked_offline =true;
+          students[index].marked_offline = true;
           console.log(students);
 
           return [...students];

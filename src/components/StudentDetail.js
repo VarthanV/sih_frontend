@@ -163,7 +163,8 @@ export default function StudentDetail(props) {
             <div className="row pt-5">
               <div className="col-8 detail-title">Guardian Details</div>
               <div className="col-4 detail-edit">
-                <Link to={id + "/addguardian"}>Add Guardian</Link>
+                <Link to={id + "/addguardian"}>Add Guardian</Link> <br></br>
+                <Link to = {id + "/addvisit"}> Add visit </Link>
               </div>
             </div>
 

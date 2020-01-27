@@ -12,6 +12,7 @@ import AddAchievements from "./components/AddAchievements";
 import Navbar from "./components/Navbar";
 import UserContextProvider from "./context/userContext";
 import StudentContextProvider from "./context/StudentContext";
+import GuardianVisit from "./components/GuardianVisit";
 
 function App() {
   const [authInfo, setAuthInfo] = useState({
@@ -88,6 +89,11 @@ function App() {
               path="/student/:id/addachievements"
               exact
               component={AddAchievements}
+            ></Route>
+             <Route
+              path="/student/:id/addvisit"
+              exact
+              component={GuardianVisit}
             ></Route>
           </Switch>
         </Router>
